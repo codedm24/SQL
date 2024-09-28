@@ -156,3 +156,65 @@ CREATE TABLE customer(cust_no INT NOT NULL,
 USE sample
 CREATE TYPE person_table_t AS TABLE
 (name VARCHAR(30), salary decimal(8,2));
+------------------------------------------------------------------
+USE master
+GO
+ALTER DATABASE projects
+ADD FILE(NAME=projects_dat1,
+	FILENAME='F:\Projects\SQL\Database Files\projects1.mdf',SIZE=10,
+	MAXSIZE=100,FILEGROWTH=5);
+---------------------------------------------------------------------
+USE sample
+
+ALTER TABLE employee
+	ADD telephone_no CHAR(12) NULL;
+
+EXEC sp_help 'employee';
+
+ALTER TABLE employee
+	DROP COLUMN telephone_no;
+
+EXEC sp_help 'employee';
+
+-------------------------------------------
+--Show Table Columns
+
+SELECT COLUMN_NAME, DATA_TYPE 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME='employee';
+---------------------------------------------
+USE sample
+
+ALTER TABLE department
+	ALTER COLUMN location CHAR(25) NOT NULL;
+-------------------------------------------------------------
+USE sample
+
+CREATE TABLE sales(
+	order_no INTEGER NOT NULL,
+	order_date DATE NOT NULL,
+	ship_date DATE NOT NULL);
+GO
+ALTER TABLE sales
+	ADD CONSTRAINT order_check CHECK(order_date <= ship_date);
+---------------------------------------------------------------
+USE sample
+
+ALTER TABLE sales
+	ADD CONSTRAINT prim_sales PRIMARY KEY(order_no);
+----------------------------------------------------------------
+USE sample
+
+ALTER TABLE sales
+	DROP CONSTRAINT order_check;
+
+ALTER TABLE sales
+	ADD CONSTRAINT order_check CHECK(order_date <= ship_date);
+
+EXEC sp_helpconstraint sales;
+---------------------------------------------------------------
+USE sample
+
+EXEC sp_rename @objname = department, @newname=subdivision
+
+EXEC sp_rename @objname ='sales.order_no', @newname=ordernumber
