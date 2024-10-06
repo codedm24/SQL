@@ -68,3 +68,47 @@ project
 WHERE
 project_name LIKE '%!_%' ESCAPE '!';
 
+SELECT job 
+FROM
+works_on
+GROUP BY job;
+
+SELECT 
+project_no, job
+FROM
+works_on
+GROUP BY project_no, job
+
+SELECT
+MIN(ALL emp_no)
+FROM
+employee
+
+SELECT
+MIN(DISTINCT emp_no)
+FROM
+employee
+
+--sub query eith aggregate function
+SELECT
+emp_lname, emp_no
+FROM
+employee
+WHERE emp_no = (
+SELECT MIN(emp_no) 
+FROM 
+employee)
+
+--subquery
+SELECT 
+emp_no
+FROM
+works_on
+WHERE
+enter_date = (
+SELECT
+MAX(enter_date)
+FROM 
+works_on
+WHERE 
+job = 'Manager')
