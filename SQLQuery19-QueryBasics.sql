@@ -25,3 +25,46 @@ FROM works_on
 WHERE project_no = 'p2'
 AND job IS NULL
 
+SELECT emp_no, ISNULL(job, 'Job unknown') AS task
+FROM works_on
+WHERE project_no = 'p1'
+
+--single character matching using '_'
+SELECT emp_fname, emp_lname, emp_no
+FROM 
+employee
+WHERE
+emp_fname LIKE '_a%';
+
+--range matching
+SELECT dept_no, dept_name, location
+FROM department
+WHERE 
+location LIKE '[C-F]%';
+
+--negation pattern 
+SELECT emp_no, emp_fname, emp_lname
+FROM 
+employee
+WHERE emp_lname LIKE '[^J-O]%'
+AND emp_fname LIKE '[^EZ]%';
+
+--not ends with
+SELECT emp_no, emp_fname, emp_lname
+FROM 
+employee
+WHERE
+emp_fname NOT LIKE '%n'
+
+--search wildcard character itself
+SELECT project_no, project_name
+FROM
+project
+WHERE project_name LIKE '%[_]%';
+
+SELECT project_no, project_name
+FROM
+project
+WHERE
+project_name LIKE '%!_%' ESCAPE '!';
+
