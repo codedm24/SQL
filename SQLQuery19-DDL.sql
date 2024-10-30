@@ -218,3 +218,18 @@ USE sample
 EXEC sp_rename @objname = department, @newname=subdivision
 
 EXEC sp_rename @objname ='sales.order_no', @newname=ordernumber
+----------------------------------------------------------------
+USE sampleABG
+
+CREATE TABLE Employees (
+    EmployeeID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [Name] VARCHAR(50),
+    Salary DECIMAL(10, 2)
+);
+
+INSERT INTO Employees (Name, Salary) VALUES
+('Alice', 25000),
+('Bob', 35000),
+('Charlie', 45000),
+('Daisy', 55000),
+('Eve', 75000);
